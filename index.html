@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Everest Barber Shop &amp; Training Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="font-roboto bg-gray-100 text-gray-900">
+<!-- Navbar -->
+<nav class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+        <div class="flex items-center">
+            <img alt="Logo of Everest Barber Shop &amp; Training Center" class="h-10 w-10 mr-2" height="40" 
+                src="https://storage.googleapis.com/a1aa/image/J1eotCfGsvkcOkkuOcvxlB7uJll6I62313yExqepe9KjAHzPB.jpg" width="40"/>
+            <span class="text-xl font-bold">Everest Barber Shop</span>
+        </div>
+        <div class="space-x-4">
+            <a class="hover:text-gray-400" href="#home">Home</a>
+            <a class="hover:text-gray-400" href="#menu">Menu</a>
+            <a class="hover:text-gray-400" href="#booking">Booking</a>
+            <a class="hover:text-gray-400" href="#gallery">Gallery</a>
+            <a class="hover:text-gray-400" href="#reviews">Reviews</a>
+            <a class="hover:text-gray-400" href="#contact">Contact Us</a>
+        </div>
+    </div>
+</nav>
+<!-- Ambience Photo Section -->
+<section class="relative h-screen bg-cover bg-center" id="home" style="background-image: url('https://storage.googleapis.com/a1aa/image/IsPut3tZht5eZ6HZpkmi6nYhy887su36tMfh6vjw3Kc4ke4nA.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
+        <h1 class="text-4xl md:text-6xl font-bold">Everest Barber Shop &amp; Training Center</h1>
+        <p class="mt-4 text-lg md:text-2xl">Your premier destination for grooming and training in Hetauda, Nepal</p>
+    </div>
+</section>
+<!-- Booking Section -->
+<section class="bg-gray-100 py-12" id="booking">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-6">Book Your Appointment</h2>
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-xl mx-auto">
+            <h3 class="text-2xl font-semibold text-center mb-4">Please Fill Out Your Details</h3>
+            <form id="booking-form" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                    <input type="text" id="name" class="w-full border-gray-300 rounded-lg shadow-sm" placeholder="Enter your name" required />
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-700 font-medium mb-2">Your Email</label>
+                    <input type="email" id="email" class="w-full border-gray-300 rounded-lg shadow-sm" placeholder="Enter your email" required />
+                </div>
+                <div>
+                    <label for="date" class="block text-gray-700 font-medium mb-2">Preferred Date</label>
+                    <input type="date" id="date" class="w-full border-gray-300 rounded-lg shadow-sm" required />
+                </div>
+                <div>
+                    <label for="time" class="block text-gray-700 font-medium mb-2">Preferred Time</label>
+                    <input type="time" id="time" class="w-full border-gray-300 rounded-lg shadow-sm" required />
+                </div>
+                <div>
+                    <label for="special-requests" class="block text-gray-700 font-medium mb-2">Special Requests</label>
+                    <textarea id="special-requests" class="w-full border-gray-300 rounded-lg shadow-sm" placeholder="Any special requests?" rows="4"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700">Submit Booking</button>
+            </form>
+            <div id="loading" class="hidden text-center mt-4">Sending your booking...</div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    (function () {
+        emailjs.init("gnNeiCrmqGDFxecmU");  // Replace with your actual Public Key
+    })();
+
+    const form = document.getElementById('booking-form');
+    const loading = document.getElementById('loading');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();  // Prevent the page from reloading
+        loading.classList.remove('hidden'); // Show loading message
+
+        const templateParams = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            date: document.getElementById('date').value,
+            time: document.getElementById('time').value,
+            special_requests: document.getElementById('special-requests').value
+        };
+
+        emailjs.send("service_af4pwrd", "template_6wkiqql", templateParams)
+    .then(function (response) {
+        console.log('Success!', response);
+        alert("Your booking has been sent! We will get back to you shortly.");
+        form.reset(); // Reset the form
+    }, function (error) {
+        console.error('Failed...', error);  // Log the error response
+        alert("Oops! Something went wrong. Please try again.");
+    })
+    .finally(() => {
+        loading.classList.add('hidden'); // Hide loading message
+    });
+    });
+</script>
+<!-- Menu Section -->
+<section class="py-12 bg-gray-50" id="menu">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img alt="Icon representing a haircut service" class="w-16 h-16 mx-auto mb-4" height="100" 
+                    src="https://storage.googleapis.com/a1aa/image/s3snZQ7kjWpsPpfU6OCKdB2aprvzCDi3wusdEc6HrcYK2YeTA.jpg" width="100"/>
+                <h3 class="text-xl font-bold text-center mb-2">Haircut</h3>
+                <p class="text-center text-gray-700">NPR 500</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img alt="Icon representing a shave service" class="w-16 h-16 mx-auto mb-4" height="100" 
+                    src="https://storage.googleapis.com/a1aa/image/pxafkFTMU2yaPC1bdneBfV2f4ZvKp6Dfk9V05Dr5cFOOkNmfE.jpg" width="100"/>
+                <h3 class="text-xl font-bold text-center mb-2">Shave</h3>
+                <p class="text-center text-gray-700">NPR 300</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img alt="Icon representing a facial service" class="w-16 h-16 mx-auto mb-4" height="100" 
+                    src="https://storage.googleapis.com/a1aa/image/6lUwDgyyN67iKhfvievSPGJ5FN3UkroJ2CV0wKzasUaKsx8TA.jpg" width="100"/>
+                <h3 class="text-xl font-bold text-center mb-2">Facial</h3>
+                <p class="text-center text-gray-700">NPR 700</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img alt="Icon representing a hair coloring service" class="w-16 h-16 mx-auto mb-4" height="100" 
+                    src="https://storage.googleapis.com/a1aa/image/jWZje5tNxi3xRCV6kD2HCoDAkVMVfudbUQzPdLTBbxfvYj5nA.jpg" width="100"/>
+                <h3 class="text-xl font-bold text-center mb-2">Hair Coloring</h3>
+                <p class="text-center text-gray-700">NPR 1500</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img alt="Icon representing a beard trim service" class="w-16 h-16 mx-auto mb-4" height="100" 
+                    src="https://storage.googleapis.com/a1aa/image/WuNiY5HwXErZJJ1PZKsuRvAWLT6pzP3BBS4ni8GSwowHbMfJA.jpg" width="100"/>
+                <h3 class="text-xl font-bold text-center mb-2">Beard Trim</h3>
+                <p class="text-center text-gray-700">NPR 400</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img alt="Icon representing a scalp massage service" class="w-16 h-16 mx-auto mb-4" height="100" 
+                    src="https://storage.googleapis.com/a1aa/image/6qfeFtbZnEsdXkl9S3a8GxmSprZ8wbeRBUow2LlM3IQZYj5nA.jpg" width="100"/>
+                <h3 class="text-xl font-bold text-center mb-2">Scalp Massage</h3>
+                <p class="text-center text-gray-700">NPR 600</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Photo Gallery Section -->
+<section class="py-12 bg-white" id="gallery">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Photo Gallery</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <img alt="Ambience photo of the barber shop showing the interior design and seating area" class="rounded-lg shadow-lg" height="300" 
+                src="https://storage.googleapis.com/a1aa/image/hwNV6zarPaqnB1gwY5UBpQeruechM9XOy8IyDuKj8YiSsx8TA.jpg" width="400"/>
+            <img alt="Ambience photo of the barber shop showing the haircut stations and mirrors" class="rounded-lg shadow-lg" height="300" 
+                src="https://storage.googleapis.com/a1aa/image/NIfAH3F18YyNTCidVwXRE4HUU9CMh22XGjGteNOxQHZZsx8TA.jpg" width="400"/>
+            <img alt="Ambience photo of the training center with students practicing haircuts" class="rounded-lg shadow-lg" height="300" 
+                src="https://storage.googleapis.com/a1aa/image/qSd60UBkqA5eW6CwP09p0iPj2r5PjA6PtB9Klb0vlXNI2YeTA.jpg" width="400"/>
+            <img alt="Ambience photo of the barber shop's waiting area with comfortable seating" class="rounded-lg shadow-lg" height="300" 
+                src="https://storage.googleapis.com/a1aa/image/hQIUyxyBoiLYFt1Ms1vT1ybV44GPleA7MNrC9vzXTdRH2YeTA.jpg" width="400"/>
+            <img alt="Ambience photo of the training center's classroom setup" class="rounded-lg shadow-lg" height="300" 
+                src="https://storage.googleapis.com/a1aa/image/JFKxWKAFACJ3BFe4YNOfAPVWLlWAGg2HKLNJZMlYoDddsx8TA.jpg" width="400"/>
+            <img alt="Ambience photo of the barber shop's product display area" class="rounded-lg shadow-lg" height="300" 
+                src="https://storage.googleapis.com/a1aa/image/A4vjNwtF4zqtL5gDIQALZ8lk9OvshuafXBT7WdiA0YKL2YeTA.jpg" width="400"/>
+        </div>
+    </div>
+</section>
+<!-- Training Courses Section -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Training Courses</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-2">Basic Barbering Course</h3>
+                <p class="text-center text-gray-700">NPR 10,000</p>
+                <p class="text-center text-gray-600 mt-4">Learn the fundamentals of barbering, including hair cutting, shaving, and customer service.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-2">Advanced Barbering Course</h3>
+                <p class="text-center text-gray-700">NPR 20,000</p>
+                <p class="text-center text-gray-600 mt-4">Enhance your skills with advanced techniques in hair styling, coloring, and beard grooming.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-2">Hair Coloring Course</h3>
+                <p class="text-center text-gray-700">NPR 15,000</p>
+                <p class="text-center text-gray-600 mt-4">Master the art of hair coloring, including highlights, lowlights, and creative color techniques.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Us Section -->
+<section class="py-12 bg-white" id="contact">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Contact Us</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <form2 id="contact-form" class="bg-gray-100 p-8 rounded-lg shadow-lg">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700" for="contact-name">Name</label>
+                        <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md" id="contact-name" required="" type="text"/>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700" for="contact-email">Email</label>
+                        <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md" id="contact-email" required="" type="email"/>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700" for="contact-message">Message</label>
+                        <textarea class="mt-1 block w-full p-2 border border-gray-300 rounded-md" id="contact-message" required=""></textarea>
+                    </div>
+                    <button class="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition duration-300" type="submit">Send Message</button>
+                </form2>
+            </div>
+            <div class="flex flex-col justify-center">
+                <p class="text-lg font-bold">Address:</p>
+                <p>BhutanDevi Road, Hetauda, Nepal</p>
+                <p class="text-lg font-bold mt-4">Phone:</p>
+                <p>+977-9845685099</p>
+                <div class="mt-8">
+                    <iframe allowfullscreen="" aria-hidden="false" frameborder="0" height="300" 
+                        src="https://maps.app.goo.gl/kDjB4HUUwZPqfvxv7" style="border:0;" tabindex="0" width="100%"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Owner's Photo and Contact Details Section -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Meet the Owner</h2>
+        <div class="flex flex-col items-center">
+            <img alt="Photo of the owner of Everest Barber Shop &amp; Training Center" class="rounded-full mb-4" height="200" 
+                src="https://storage.googleapis.com/a1aa/image/f3kN38QpADXQMSd0W1pGArzIE4PPX1drVT01y43p6D6N2YeTA.jpg" width="200"/>
+            <p class="text-lg font-bold">Pramod Ghimire</p>
+            <p>Owner</p>
+            <p class="mt-4">Contact: +977-9845685099</p>
+            <p>Gmail: ghimirepramod1235@gmail.com</p>
+        </div>
+    </div>
+</section>
+<!-- Reviews Section -->
+<section class="py-12 bg-white" id="reviews">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Customer Reviews</h2>
+        <div class="space-y-8">
+            <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <p class="text-lg font-bold">Jane Smith</p>
+                <p class="text-gray-700 mt-2">"Amazing service! The staff is very professional and the ambience is great. Highly recommend!"</p>
+            </div>
+            <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <p class="text-lg font-bold">Michael Johnson</p>
+                <p class="text-gray-700 mt-2">"I took the advanced barbering course and it was fantastic. The instructors are very knowledgeable."</p>
+            </div>
+            <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <p class="text-lg font-bold">Emily Davis
+    </p>
+    <p class="text-gray-700 mt-2">
+     "Best haircut I've ever had! The attention to detail is incredible."
+    </p>
+   </div>
+  </div>
+</section>
+ <!-- Reviews Section -->
+<section class="bg-gray-100 py-12">
+    <div class="container mx-auto px-4">
+  
+      <!-- Existing Reviews -->
+      <div id="reviews-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Reviews will be dynamically added here -->
+      </div>
+  
+      <!-- Add Review Form -->
+      <div class="mt-8 bg-white p-6 rounded-lg shadow-lg max-w-xl mx-auto">
+        <h3 class="text-2xl font-semibold text-center mb-4">Submit Your Review</h3>
+        <form3 id="review-form" class="space-y-4">
+          <div>
+            <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+            <input
+              type="text"
+              id="name"
+              class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div>
+            <label for="rating" class="block text-gray-700 font-medium mb-2">Rating (1-5)</label>
+            <select
+              id="rating"
+              class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            >
+              <option value="" disabled selected>Select your rating</option>
+              <option value="1">1 - Poor</option>
+              <option value="2">2 - Fair</option>
+              <option value="3">3 - Good</option>
+              <option value="4">4 - Very Good</option>
+              <option value="5">5 - Excellent</option>
+            </select>
+          </div>
+          <div>
+            <label for="review" class="block text-gray-700 font-medium mb-2">Your Review</label>
+            <textarea
+              id="review"
+              rows="4"
+              class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Write your review here"
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+          >
+            Submit Review
+          </button>
+        </form3>
+      </div>
+    </div>
+  </section>
+  
+  <!-- JavaScript -->
+  <script>
+    // Get the form and reviews container
+    const form3 = document.getElementById('review-form');
+    const reviewsContainer = document.getElementById('reviews-container');
+  
+    // Handle form submission
+    form3.addEventListener('submit', (event) => {
+      event.preventDefault();
+  
+      // Get form values
+      const name = document.getElementById('name').value;
+      const rating = document.getElementById('rating').value;
+      const review = document.getElementById('review').value;
+  
+      // Create a new review card
+      const reviewCard = document.createElement('div');
+      reviewCard.className = 'bg-white p-6 rounded-lg shadow';
+      reviewCard.innerHTML = `
+        <p class="text-gray-700 italic mb-4">"${review}"</p>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-900 font-semibold">${name}</p>
+            <p class="text-sm text-gray-600">${'⭐'.repeat(rating)}</p>
+          </div>
+        </div>
+      `;
+  
+      // Append the new review to the reviews container
+      reviewsContainer.appendChild(reviewCard);
+  
+      // Clear the form
+      form3.reset();
+    });
+  </script>
+ </div>
+</section>
+<!-- Footer -->
+<footer class="py-8 bg-gray-800 text-white">
+ <div class="container mx-auto px-4 text-center">
+  <div class="mb-4">
+   <a class="mx-2 text-white hover:text-gray-400" href="https://facebook.com">
+    <i class="fab fa-facebook-f">
+    </i>
+   </a>
+   <a class="mx-2 text-white hover:text-gray-400" href="https://instagram.com">
+    <i class="fab fa-instagram">
+    </i>
+   </a>
+   <a class="mx-2 text-white hover:text-gray-400" href="https://tiktok.com">
+    <i class="fab fa-tiktok">
+    </i>
+   </a>
+  </div>
+  <p>
+   © 2023 Everest Barber Shop &amp; Training Center. All rights reserved.
+  </p> 
+  <p>
+   Contact us: ghimirepramod1235@gmail.com
+  </p>
+     </div>
+    </div>
+     </footer>
+  </section>
+ </body>
+</html>
